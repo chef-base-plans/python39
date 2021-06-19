@@ -52,7 +52,6 @@ do_build() {
   ./configure --prefix="$pkg_prefix" \
               --enable-loadable-sqlite-extensions \
               --enable-shared \
-              --with-threads \
               --with-system-expat \
               --with-system-ffi \
               --with-ensurepip
