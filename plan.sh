@@ -40,14 +40,16 @@ pkg_build_deps=(
   core/util-linux
 )
 
+do_setup_environment() {
+  export LDFLAGS="$LDFLAGS -lgcc_s"
+}
+
 do_prepare() {
   sed -i.bak 's/#zlib/zlib/' Modules/Setup
   sed -i -re "/(SSL=|_ssl|-DUSE_SSL|-lssl).*/ s|^#||" Modules/Setup
 }
 
 do_build() {
-  export LDFLAGS="$LDFLAGS -lgcc_s"
-
   # TODO: We should build with `--enable-optimizations`
   ./configure --prefix="$pkg_prefix" \
               --enable-loadable-sqlite-extensions \
