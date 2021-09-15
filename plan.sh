@@ -1,6 +1,6 @@
 pkg_name=python39
 pkg_distname=Python
-pkg_version=3.9.2
+pkg_version=3.9.5
 pkg_origin=core
 pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
 pkg_license=('Python-2.0')
@@ -9,7 +9,7 @@ pkg_description="Python is a programming language that lets you work quickly \
 pkg_upstream_url="https://www.python.org"
 pkg_dirname="${pkg_distname}-${pkg_version}"
 pkg_source="https://www.python.org/ftp/python/${pkg_version}/${pkg_dirname}.tgz"
-pkg_shasum="7899e8a6f7946748830d66739f2d8f2b30214dad956e56b9ba216b3de5581519"
+pkg_shasum="e0fbd5b6e1ee242524430dee3c91baf4cbbaba4a72dd1674b90fda87b713c7ab"
 
 pkg_bin_dirs=(bin)
 pkg_lib_dirs=(lib)
@@ -31,6 +31,7 @@ pkg_deps=(
 )
 
 pkg_build_deps=(
+  core/pkg-config
   core/coreutils
   core/diffutils
   core/gcc
@@ -39,23 +40,22 @@ pkg_build_deps=(
   core/util-linux
 )
 
+do_setup_environment() {
+  export LDFLAGS="$LDFLAGS -lgcc_s"
+}
+
 do_prepare() {
   sed -i.bak 's/#zlib/zlib/' Modules/Setup
   sed -i -re "/(SSL=|_ssl|-DUSE_SSL|-lssl).*/ s|^#||" Modules/Setup
 }
 
 do_build() {
-  export LDFLAGS="$LDFLAGS -lgcc_s"
-
-  # TODO: We should build with `--enable-optimizations`
   ./configure --prefix="$pkg_prefix" \
               --enable-loadable-sqlite-extensions \
               --enable-shared \
-              --with-threads \
               --with-system-expat \
-              --with-system-ffi \
-              --with-ensurepip
-
+              --with-ensurepip \
+              --enable-optimizations
   make
 }
 
