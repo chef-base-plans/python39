@@ -1,6 +1,6 @@
 pkg_name=python39
 pkg_distname=Python
-pkg_version=3.9.5
+pkg_version=3.9.7
 pkg_origin=core
 pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
 pkg_license=('Python-2.0')
@@ -9,7 +9,7 @@ pkg_description="Python is a programming language that lets you work quickly \
 pkg_upstream_url="https://www.python.org"
 pkg_dirname="${pkg_distname}-${pkg_version}"
 pkg_source="https://www.python.org/ftp/python/${pkg_version}/${pkg_dirname}.tgz"
-pkg_shasum="e0fbd5b6e1ee242524430dee3c91baf4cbbaba4a72dd1674b90fda87b713c7ab"
+pkg_shasum="a838d3f9360d157040142b715db34f0218e535333696a5569dc6f854604eb9d1"
 
 pkg_bin_dirs=(bin)
 pkg_lib_dirs=(lib)
